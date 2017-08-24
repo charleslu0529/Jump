@@ -49,7 +49,8 @@ public class PlayerScript : MonoBehaviour {
 		rb.velocity = new Vector2(0,rb.velocity.y);
 			
 
-		transform.Translate(Vector3.right* Time.deltaTime * MoveSpeed * Input.GetAxisRaw("Horizontal"));
+		//transform.Translate(Vector3.right* Time.deltaTime * MoveSpeed * Input.GetAxisRaw("Horizontal"));
+		rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
 	}
 
 	void OnCollisionEnter2D(Collision2D col2D){
