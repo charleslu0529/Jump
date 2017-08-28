@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ public class CameraScript : MonoBehaviour {
 		offset = transform.position - new Vector3(Player.transform.position.x, Player.transform.position.y, transform.position.z);
 		playerPosition  = new Vector3(Player.transform.position.x, Player.transform.position.y, transform.position.z);
 		transform.position = Vector3.SmoothDamp(transform.position, playerPosition, ref cameraVelocity, CameraSmoothTime);
-
+		//transform.Translate(offset);
 		/*if(offset.x > 3f || offset.x < -3f){
 			transform.position = Vector3.SmoothDamp(transform.position, playerPosition, ref cameraVelocity, CameraSmoothTime);
 		}*/
