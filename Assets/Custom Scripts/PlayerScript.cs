@@ -10,9 +10,11 @@ public class PlayerScript : MonoBehaviour {
 	public float MoveSpeed = 2f;
 	public float MaxJumpMultiplier = 1.3f;
 	public Color MaxJumpColor;
+	public enum ColorState {Normal, Green, Red}
 	bool isOnWallLeft = false;
 	bool isOnWall = false;
 	bool isInAir = false;
+	bool isWallJumping = false;
 	float timeHeld = 0f;
 	bool maxJump = false;
 	bool canWallJump = false;
@@ -58,13 +60,16 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 		//rb.velocity = new Vector2(0,rb.velocity.y);
-		if(Input.GetAxisRaw("Horizontal") == 0){
-			if(isInAir){
-				rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y,0f);
+		if(isWallJumping){
+			if(Input.GetAxisRaw("Horizontal") == 0){
+				if(isInAir){
+					rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y,0f);
+				}else{
+					rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
+				}
 			}else{
 				rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
 			}
-			
 		}else{
 			rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
 		}
@@ -114,6 +119,7 @@ public class PlayerScript : MonoBehaviour {
         		if(canWallJump){
         			if( Input.GetKeyUp("space") ){
 						rb.velocity = new Vector3(1f,1f,0f).normalized;
+						isWallJumping = true;
 						if(maxJump){
 							rb.velocity = rb.velocity * WallJumpSpeed * MaxJumpMultiplier;
 						}else{
@@ -128,6 +134,7 @@ public class PlayerScript : MonoBehaviour {
         		if(canWallJump){
         			if( Input.GetKeyUp("space") ){
 						rb.velocity = new Vector3(-1f,1f,0f).normalized;
+						isWallJumping = true;
 						if(maxJump){
 							rb.velocity = rb.velocity * WallJumpSpeed * MaxJumpMultiplier;
 						}else{
@@ -145,6 +152,7 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D col2D){
+		isWallJumping = false;
 	}
 
 	void OnCollisionStay2D(Collision2D col2D) {
