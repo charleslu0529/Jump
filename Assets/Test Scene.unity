@@ -1648,7 +1648,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -554686574
+  randomSeed: 831138868
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4359,7 +4359,7 @@ GameObject:
   - component: {fileID: 1990080976}
   - component: {fileID: 1990080975}
   m_Layer: 0
-  m_Name: green wall (1)
+  m_Name: Red wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
