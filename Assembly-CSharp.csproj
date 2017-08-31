@@ -47,7 +47,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Custom Scripts\CameraScript.cs" />
+     <Compile Include="Assets\Custom Scripts\GameManager.cs" />
+     <Compile Include="Assets\Custom Scripts\ParticleScript.cs" />
      <Compile Include="Assets\Custom Scripts\PlayerScript.cs" />
+     <Compile Include="Assets\Custom Scripts\WallScript.cs" />
  <Reference Include="UnityEngine.Purchasing">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityPurchasing/UnityEngine.Purchasing.dll</HintPath>
  </Reference>

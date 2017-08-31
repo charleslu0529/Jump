@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour {
 	public float MaxJumpMultiplier = 1.3f;
 	public Color MaxJumpColor;
 	public enum ColorState {Normal, Green, Red}
+	public ColorState myColor;
 	bool isOnWallLeft = false;
 	bool isOnWall = false;
 	bool isInAir = false;
@@ -27,6 +28,7 @@ public class PlayerScript : MonoBehaviour {
 	void Start () {
 		originalColor = GetComponent<SpriteRenderer>().color;
 		rb = GetComponent<Rigidbody2D>();
+		myColor = ColorState.Normal;
 	}
 	
 	// Update is called once per frame
@@ -59,14 +61,9 @@ public class PlayerScript : MonoBehaviour {
 			GetComponent<SpriteRenderer>().color = originalColor;
 		}
 
-		//rb.velocity = new Vector2(0,rb.velocity.y);
-		if(isWallJumping){
-			if(Input.GetAxisRaw("Horizontal") == 0){
-				if(isInAir){
-					rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y,0f);
-				}else{
-					rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
-				}
+		if(Input.GetAxisRaw("Horizontal") == 0){
+			if(isInAir){
+				rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y,0f);
 			}else{
 				rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
 			}
@@ -84,12 +81,10 @@ public class PlayerScript : MonoBehaviour {
         		isOnWall = true;
         		isOnWallLeft = true;
         		canWallJump = true;
-        		Debug.Log("On Wall Left");
         	}else if(castRight.collider != null){	// if there is a wall on the right in mid air
         		isOnWall = true;
         		isOnWallLeft = false;
         		canWallJump = true;
-        		Debug.Log("On Wall Right");
         	}else{
         		isOnWall = false;
         		canWallJump = false;
@@ -102,12 +97,16 @@ public class PlayerScript : MonoBehaviour {
         if(castLeft.collider != null){
         	if(rb.velocity.x < 0){
         		rb.velocity = new Vector3(0, rb.velocity.y, 0f);
+        	}else{
+        		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0f);
         	}
         }
 
         if(castRight.collider != null){
         	if(rb.velocity.x > 0){
         		rb.velocity = new Vector3(0, rb.velocity.y, 0f);
+        	}else{
+        		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0f);
         	}
         }
 
@@ -145,10 +144,6 @@ public class PlayerScript : MonoBehaviour {
         	}
         }
 
-		Debug.DrawRay(transform.position + new Vector3(-0.52f,0,0), Vector3.left,Color.green);
-		Debug.DrawRay(transform.position + new Vector3(0.52f,0,0), Vector3.right,Color.green);
-		Debug.DrawRay(transform.position + new Vector3(0,-0.52f,0), Vector3.down,Color.green);
-
 	}
 
 	void OnCollisionEnter2D(Collision2D col2D){
@@ -158,6 +153,23 @@ public class PlayerScript : MonoBehaviour {
 	void OnCollisionStay2D(Collision2D col2D) {
         
     }
+
+    void OnParticleCollision(GameObject other){
+    	if(other.GetComponent<ParticleSystem>()){
+    		if(other.GetComponent<ParticleSystem>().startColor.Equals(GameManager.instance.GetNormalColour() ) ) {
+	    		myColor = ColorState.Normal;
+	    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetNormalColour();
+	    	}else if(other.GetComponent<ParticleSystem>().startColor.Equals(GameManager.instance.GetGreenColour() ) ){
+	    		myColor = ColorState.Green;
+	    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetGreenColour();
+	    	}else if(other.GetComponent<ParticleSystem>().startColor.Equals(GameManager.instance.GetRedColour() ) ){
+	    		myColor = ColorState.Red;
+	    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetRedColour();
+	    	}
+    	}
+    }
+
+
 
    
 
