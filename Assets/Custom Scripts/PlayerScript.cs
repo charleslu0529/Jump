@@ -25,9 +25,15 @@ public class PlayerScript : MonoBehaviour {
 	RaycastHit2D castDown;
 	// Use this for initialization
 	void Start () {
-		originalColor = GetComponent<SpriteRenderer>().color;
 		rb = GetComponent<Rigidbody2D>();
-		myColor = ColorState.Normal;
+		if(myColor == ColorState.Normal){
+			GetComponent<SpriteRenderer>().color = GameManager.instance.GetNormalColour();
+		}else if(myColor == ColorState.Green){
+			GetComponent<SpriteRenderer>().color = GameManager.instance.GetGreenColour();
+		}else if(myColor == ColorState.Red){
+			GetComponent<SpriteRenderer>().color = GameManager.instance.GetRedColour();
+		}
+		originalColor = GetComponent<SpriteRenderer>().color;
 	}
 	
 	// Update is called once per frame
@@ -155,66 +161,42 @@ public class PlayerScript : MonoBehaviour {
 
     void OnParticleCollision(GameObject other){
     	if(other.GetComponent<ParticleSystem>()){
-    		Debug.Log("Particle collided!");
     		ParticleSystem ps = other.GetComponent<ParticleSystem>();
 			var ma = ps.main;
-    		if(ma.startColor.Equals(GameManager.instance.GetNormalColour() ) ) {
-	    		myColor = ColorState.Normal;
-	    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetNormalColour();
-	    	}else if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetGreenColour().r  /*ma.startColor.Equals(GameManager.instance.GetGreenColour() )*/ ){
-	    		Debug.Log(other.GetComponent<ParticleSystem>().startColor.r);
-
-	    		if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetGreenColour().g){
-	    			Debug.Log(other.GetComponent<ParticleSystem>().startColor.g);
-	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetGreenColour().b){
-	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetGreenColour().a){
-	    					myColor = ColorState.Green;
-				    		Debug.Log(GameManager.instance.GetGreenColour());
-				    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetGreenColour();
+			if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetNormalColour().r ){
+	    		if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetNormalColour().g){
+	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetNormalColour().b){
+	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetNormalColour().a){
+	    					myColor = ColorState.Normal;
+				    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetNormalColour();
+				    		originalColor = GameManager.instance.GetNormalColour();
 	    				}
 	    			}
 	    		}
-
-	    		myColor = ColorState.Green;
-	    		Debug.Log(GameManager.instance.GetGreenColour());
-	    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetGreenColour();
-	    		
-	    	}else if(ma.startColor.Equals(GameManager.instance.GetRedColour() ) ){
-	    		myColor = ColorState.Red;
-	    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetRedColour();
-	    	}
-
-	    	if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetGreenColour().r  /*ma.startColor.Equals(GameManager.instance.GetGreenColour() )*/ ){
-	    		Debug.Log(other.GetComponent<ParticleSystem>().startColor.r);
-
+	    	}else if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetGreenColour().r ){
 	    		if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetGreenColour().g){
-	    			Debug.Log(other.GetComponent<ParticleSystem>().startColor.g);
 	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetGreenColour().b){
 	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetGreenColour().a){
 	    					myColor = ColorState.Green;
-				    		Debug.Log(GameManager.instance.GetGreenColour());
 				    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetGreenColour();
+				    		originalColor = GameManager.instance.GetGreenColour();
 	    				}
 	    			}
 	    		}
-
-	    		myColor = ColorState.Green;
-	    		Debug.Log(GameManager.instance.GetGreenColour());
-	    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetGreenColour();
-	    		
+	    	}else if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetRedColour().r ){
+	    		if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetRedColour().g){
+	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetRedColour().b){
+	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetRedColour().a){
+	    					myColor = ColorState.Red;
+				    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetRedColour();
+				    		originalColor = GameManager.instance.GetRedColour();
+	    				}
+	    			}
+	    		}
 	    	}
-
-	    	Debug.Log(other.GetComponent<ParticleSystem>().startColor);
-	    	
-	    	
-	    	Debug.Log(GameManager.instance.GetGreenColour());
     	}
     }
-
-
-
-   
-
+    
 	void Jump(){
 		if(maxJump){
 			rb.velocity = transform.up * JumpSpeed * MaxJumpMultiplier;
