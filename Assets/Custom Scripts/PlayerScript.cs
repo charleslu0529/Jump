@@ -161,8 +161,6 @@ public class PlayerScript : MonoBehaviour {
 
     void OnParticleCollision(GameObject other){
     	if(other.GetComponent<ParticleSystem>()){
-    		ParticleSystem ps = other.GetComponent<ParticleSystem>();
-			var ma = ps.main;
 			if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetNormalColour().r ){
 	    		if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetNormalColour().g){
 	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetNormalColour().b){
@@ -178,8 +176,8 @@ public class PlayerScript : MonoBehaviour {
 	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetGreenColour().b){
 	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetGreenColour().a){
 	    					myColor = ColorState.Green;
-				    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetGreenColour();
-				    		originalColor = GameManager.instance.GetGreenColour();
+				    		//GetComponent<SpriteRenderer>().color = GameManager.instance.GetGreenColour();
+				    		originalColor = new Color(GameManager.instance.GetGreenColour().r, GameManager.instance.GetGreenColour().g, GameManager.instance.GetGreenColour().b, GameManager.instance.GetGreenColour().a);
 	    				}
 	    			}
 	    		}
