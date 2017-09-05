@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - Colored Wall
+  - block
   layers:
   - Default
   - TransparentFX
@@ -14,10 +16,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Green Wall
+  - Red Wall
+  - Player
+  - block
   - 
   - 
   - 
