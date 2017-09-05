@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 357601735}
   - component: {fileID: 357601734}
   - component: {fileID: 357601733}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: block
   m_TagString: block
   m_Icon: {fileID: 0}
@@ -335,6 +335,10 @@ Prefab:
       propertyPath: m_TagString
       value: block
       objectReference: {fileID: 0}
+    - target: {fileID: 1161526996902634, guid: 420f422b770ec4f20bb6752757132413, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 420f422b770ec4f20bb6752757132413, type: 2}
   m_IsPrefabParent: 0
@@ -496,7 +500,7 @@ GameObject:
   - component: {fileID: 697103118}
   - component: {fileID: 697103117}
   - component: {fileID: 697103119}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: block
   m_TagString: block
   m_Icon: {fileID: 0}
@@ -621,7 +625,7 @@ GameObject:
   - component: {fileID: 912702167}
   - component: {fileID: 912702166}
   - component: {fileID: 912702165}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: block
   m_TagString: block
   m_Icon: {fileID: 0}
@@ -1206,6 +1210,9 @@ MonoBehaviour:
   MaxJumpColor: {r: 0.75862056, g: 0.375, b: 1, a: 1}
   myColor: 0
   colorNumber: 0
+  CastLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &1534862434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,7 +1303,7 @@ GameObject:
   - component: {fileID: 1598368015}
   - component: {fileID: 1598368014}
   - component: {fileID: 1598368013}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: block
   m_TagString: block
   m_Icon: {fileID: 0}
@@ -1375,7 +1382,7 @@ GameObject:
   - component: {fileID: 1836810351}
   - component: {fileID: 1836810350}
   - component: {fileID: 1836810349}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: block
   m_TagString: block
   m_Icon: {fileID: 0}
@@ -4344,7 +4351,7 @@ GameObject:
   - component: {fileID: 2014344053}
   - component: {fileID: 2014344052}
   - component: {fileID: 2014344051}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: block
   m_TagString: block
   m_Icon: {fileID: 0}
