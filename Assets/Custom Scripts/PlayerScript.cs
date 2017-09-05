@@ -12,6 +12,8 @@ public class PlayerScript : MonoBehaviour {
 	public Color MaxJumpColor;
 	public enum ColorState {Normal, Green, Red}
 	public ColorState myColor;
+	public int colorNumber = 0;
+	public LayerMask CastLayer;
 	bool isOnWallLeft = false;
 	bool isOnWall = false;
 	bool isInAir = false;
@@ -23,6 +25,7 @@ public class PlayerScript : MonoBehaviour {
 	RaycastHit2D castLeft;
 	RaycastHit2D castRight;
 	RaycastHit2D castDown;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -34,6 +37,7 @@ public class PlayerScript : MonoBehaviour {
 			GetComponent<SpriteRenderer>().color = GameManager.instance.GetRedColour();
 		}
 		originalColor = GetComponent<SpriteRenderer>().color;
+		colorNumber = 0;
 	}
 	
 	// Update is called once per frame
@@ -46,6 +50,14 @@ public class PlayerScript : MonoBehaviour {
 					isInAir = true;
 				}
 			}
+		}
+
+		if(myColor == ColorState.Normal){
+			colorNumber = 0;
+		}else if(myColor == ColorState.Green){
+			colorNumber = 1;
+		}else if(myColor == ColorState.Red){
+			colorNumber = 2;
 		}
 
 		if( Input.GetKey("space") ){
@@ -77,9 +89,9 @@ public class PlayerScript : MonoBehaviour {
 		}
 		
 
-		castLeft = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.left, 0.01f);
-		castRight = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.01f);
-		castDown = Physics2D.Raycast(transform.position + new Vector3(0,-0.51f,0), Vector3.down, 0.1f);
+		castLeft = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.left, 0.01f, CastLayer);
+		castRight = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.01f, CastLayer);
+		castDown = Physics2D.Raycast(transform.position + new Vector3(0,-0.51f,0), Vector3.down, 0.1f, CastLayer);
         if(castDown.collider == null){ 	// if player is off the ground
         	isInAir = true;
         	if(castLeft.collider != null){		//if there is a wall on the left in mid air
@@ -148,7 +160,6 @@ public class PlayerScript : MonoBehaviour {
         		}
         	}
         }
-
 	}
 
 	void OnCollisionEnter2D(Collision2D col2D){
@@ -168,6 +179,7 @@ public class PlayerScript : MonoBehaviour {
 	    					myColor = ColorState.Normal;
 				    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetNormalColour();
 				    		originalColor = GameManager.instance.GetNormalColour();
+				    		Debug.Log("Color State: " + myColor);
 	    				}
 	    			}
 	    		}
@@ -178,6 +190,7 @@ public class PlayerScript : MonoBehaviour {
 	    					myColor = ColorState.Green;
 				    		//GetComponent<SpriteRenderer>().color = GameManager.instance.GetGreenColour();
 				    		originalColor = new Color(GameManager.instance.GetGreenColour().r, GameManager.instance.GetGreenColour().g, GameManager.instance.GetGreenColour().b, GameManager.instance.GetGreenColour().a);
+	    					Debug.Log("Color State: " + myColor);
 	    				}
 	    			}
 	    		}
@@ -188,11 +201,15 @@ public class PlayerScript : MonoBehaviour {
 	    					myColor = ColorState.Red;
 				    		GetComponent<SpriteRenderer>().color = GameManager.instance.GetRedColour();
 				    		originalColor = GameManager.instance.GetRedColour();
+	    					Debug.Log("Color State: " + myColor);
 	    				}
 	    			}
 	    		}
 	    	}
     	}
+
+    	Debug.Log("Player Color State: " + myColor);
+    	Debug.Log("Particle Color State: " + other.GetComponent<WallScript>().myColor);
     }
     
 	void Jump(){
