@@ -1812,7 +1812,7 @@ GameObject:
   - component: {fileID: 1299951736}
   m_Layer: 0
   m_Name: spike (1)
-  m_TagString: Untagged
+  m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6161,7 +6161,7 @@ GameObject:
   - component: {fileID: 1841547479}
   m_Layer: 0
   m_Name: spike (3)
-  m_TagString: Untagged
+  m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6250,7 +6250,7 @@ GameObject:
   - component: {fileID: 1998508687}
   m_Layer: 0
   m_Name: spike
-  m_TagString: Untagged
+  m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6545,7 +6545,7 @@ GameObject:
   - component: {fileID: 2107021678}
   m_Layer: 0
   m_Name: spike (2)
-  m_TagString: Untagged
+  m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
