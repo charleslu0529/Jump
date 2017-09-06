@@ -46,6 +46,7 @@ public class PlayerScript : MonoBehaviour {
 		}else if(myColor == ColorState.Red){
 			GetComponent<SpriteRenderer>().color = GameManager.instance.GetRedColour();
 		}
+
 		originalColor = GetComponent<SpriteRenderer>().color;
 		colorNumber = 0;
 		tempWallJumpTime = wallJumptimer;
@@ -54,9 +55,7 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(isDead){
-			GameManager.instance.endGame();
-		}else{
+		if(GameManager.instance.getIsRunning()){
 			if(!canWallJump){
 				if(!isInAir){
 					if( Input.GetKeyUp("space") ){
@@ -66,13 +65,13 @@ public class PlayerScript : MonoBehaviour {
 				}
 			}
 
-			castLeftRed = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.right, 0.01f, CastLayerRed);
+			castLeftRed = Physics2D.Raycast(transform.position + new Vector3(-0.55f,0,0), Vector3.right, 0.1f, CastLayerRed);
 			Debug.Log(castLeftRed.collider);
-			castRightRed = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.01f, CastLayerRed);
+			castRightRed = Physics2D.Raycast(transform.position + new Vector3(0.55f,0,0), Vector3.right, 0.1f, CastLayerRed);
 			Debug.Log(castRightRed.collider);
-			castLeftGreen = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.right, 0.01f, CastLayerGreen);
+			castLeftGreen = Physics2D.Raycast(transform.position + new Vector3(-0.55f,0,0), Vector3.right, 0.1f, CastLayerGreen);
 			Debug.Log(castLeftGreen.collider);
-			castRightGreen = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.01f, CastLayerGreen);
+			castRightGreen = Physics2D.Raycast(transform.position + new Vector3(0.55f,0,0), Vector3.right, 0.1f, CastLayerGreen);
 			Debug.Log(castRightGreen.collider);
 
 			
@@ -119,9 +118,9 @@ public class PlayerScript : MonoBehaviour {
 				tempWallJumpTime = wallJumptimer;
 			}
 
-			castLeft = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.left, 0.01f, CastLayer);
-			castRight = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.01f, CastLayer);
-			castDown = Physics2D.Raycast(transform.position + new Vector3(0,-0.51f,0), Vector3.down, 0.1f, CastLayer);
+			castLeft = Physics2D.Raycast(transform.position + new Vector3(-0.55f,0,0), Vector3.left, 0.01f, CastLayer);
+			castRight = Physics2D.Raycast(transform.position + new Vector3(0.55f,0,0), Vector3.right, 0.01f, CastLayer);
+			castDown = Physics2D.Raycast(transform.position + new Vector3(0,-0.55f,0), Vector3.down, 0.5f, CastLayer);
 	        if(castDown.collider == null){ 	// if player is off the ground
 	        	isInAir = true;
 	        	if(castLeft.collider != null){		//if there is a wall on the left in mid air
@@ -247,12 +246,17 @@ public class PlayerScript : MonoBehaviour {
 	        		}
 	        	}
 	        }
-		}
+	    }
+
+	    if(GameManager.instance.getIsEndGame()){
+	    	Destroy(gameObject);
+	    }
 	}
 
 	void OnCollisionEnter2D(Collision2D col2D){
 		if(col2D.gameObject.tag == "Spike"){
-			isDead = true;
+			GameManager.instance.endGame();
+			GameManager.instance.endRun();
 		}
 	}
 

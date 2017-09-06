@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -12,6 +13,13 @@ public class GameManager : MonoBehaviour {
 	public GameObject Player;
 	public GameObject GreenWall;
 	public GameObject RedWall;
+	public AudioSource BGM;
+	public Text CenterText;
+	public float RestartTimer = 3f;
+	bool isEndGame = false;
+	bool isPlayingMusic = false;
+	bool isRunning = false;
+	AudioSource bgm;
 
 	void Awake()
 	{
@@ -22,29 +30,58 @@ public class GameManager : MonoBehaviour {
 		{
 			Destroy(gameObject);
 		}
+		
 	}
 
 	// Use this for initialization
 	void Start () {
-		
+		Time.timeScale = 0;
+		AudioSource[] audios = GetComponents<AudioSource>();
+		bgm = audios[0];
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		switch (Player.GetComponent<PlayerScript>().colorNumber)
-		{
-			case 1:
-				Physics2D.IgnoreLayerCollision(10, 8, true);
-				Physics2D.IgnoreLayerCollision(10, 9, false);
-				break;
-			case 2:
-				Physics2D.IgnoreLayerCollision(10, 9, true);
-				Physics2D.IgnoreLayerCollision(10, 8, false);
-				break;
-			default:
-				Physics2D.IgnoreLayerCollision(10, 8, false);
-				Physics2D.IgnoreLayerCollision(10, 9, false);
-				break;
+		if(Input.anyKey){
+			if(!isEndGame){
+				isRunning = true;
+			}
+		}
+
+		if(isRunning){
+			Time.timeScale = 1f;
+			CenterText.text = "";
+			if(!isPlayingMusic){
+				isPlayingMusic = true;
+				bgm.Play();
+			}
+		}
+
+		if(Player != null){
+			switch (Player.GetComponent<PlayerScript>().colorNumber)
+			{
+				case 1:
+					Physics2D.IgnoreLayerCollision(10, 8, true);
+					Physics2D.IgnoreLayerCollision(10, 9, false);
+					break;
+				case 2:
+					Physics2D.IgnoreLayerCollision(10, 9, true);
+					Physics2D.IgnoreLayerCollision(10, 8, false);
+					break;
+				default:
+					Physics2D.IgnoreLayerCollision(10, 8, false);
+					Physics2D.IgnoreLayerCollision(10, 9, false);
+					break;
+			}
+		}
+			
+
+		if(isEndGame){
+			RestartTimer -= Time.deltaTime;
+		}
+
+		if(RestartTimer < 0){
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 
 		/*if(Player.GetComponent<PlayerScript>().myColor == GreenWall.GetComponent<WallScript>().myColor){
@@ -73,6 +110,19 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void endGame(){
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		
+		isEndGame = true;
+	}
+
+	public bool getIsEndGame(){
+		return isEndGame;
+	}
+	
+	public void endRun(){
+		isRunning = false;
+	}
+
+	public bool getIsRunning(){
+		return isRunning;
 	}
 }
