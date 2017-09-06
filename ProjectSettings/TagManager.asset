@@ -9,6 +9,7 @@ TagManager:
   - block
   - Spike
   - Chest
+  - Death
   layers:
   - Default
   - TransparentFX

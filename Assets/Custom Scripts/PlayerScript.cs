@@ -248,6 +248,8 @@ public class PlayerScript : MonoBehaviour {
 	        		}
 	        	}
 	        }
+	    }else{
+	    	rb.velocity = Vector3.zero;
 	    }
 
 	    if(GameManager.instance.getIsEndGame()){
@@ -256,9 +258,13 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D col2D){
-		if(col2D.gameObject.tag == "Spike"){
+		if(col2D.gameObject.tag == "Spike" || col2D.gameObject.tag == "Death" ){
 			GameManager.instance.endGame();
 			GameManager.instance.endRun();
+		}
+
+		if(col2D.gameObject.tag == "Chest"){
+			GameManager.instance.endScene();
 		}
 	}
 

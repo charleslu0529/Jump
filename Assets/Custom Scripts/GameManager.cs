@@ -13,10 +13,15 @@ public class GameManager : MonoBehaviour {
 	public GameObject Player;
 	public GameObject GreenWall;
 	public GameObject RedWall;
+	public GameObject Death;
 	public AudioSource BGM;
 	public Text CenterText;
 	public float RestartTimer = 3f;
+	public float endInstTimer = 8f;
+	public float deathSpeed = 20f;
 	bool isEndGame = false;
+	bool hasSpawnedDeath = false;
+	bool isEndScene = false;
 	bool isPlayingMusic = false;
 	bool isRunning = false;
 	AudioSource bgm;
@@ -44,7 +49,10 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if(Input.anyKey){
 			if(!isEndGame){
-				isRunning = true;
+				if(!isEndScene){
+					isRunning = true;
+				}
+				
 			}
 		}
 
@@ -83,6 +91,17 @@ public class GameManager : MonoBehaviour {
 
 		if(RestartTimer < 0){
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
+
+		if(isEndScene){
+			endInstTimer -= Time.deltaTime;
+			if(endInstTimer < 0){
+				if(!hasSpawnedDeath){
+					GameObject deathObject = Instantiate(Death, Player.GetComponent<Transform>().position + Vector3.up * 10f , Quaternion.identity) as GameObject;
+					hasSpawnedDeath = true;
+					deathObject.GetComponent<Rigidbody2D>().velocity = Vector3.down * deathSpeed;
+				}
+			}
 		}
 
 		/*if(Player.GetComponent<PlayerScript>().myColor == GreenWall.GetComponent<WallScript>().myColor){
@@ -125,5 +144,11 @@ public class GameManager : MonoBehaviour {
 
 	public bool getIsRunning(){
 		return isRunning;
+	}
+
+	public void endScene(){
+		isRunning = false;
+		bgm.Stop();
+		isEndScene = true;
 	}
 }
