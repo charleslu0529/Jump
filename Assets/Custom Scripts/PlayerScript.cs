@@ -65,13 +65,13 @@ public class PlayerScript : MonoBehaviour {
 				}
 			}
 
-			castLeftRed = Physics2D.Raycast(transform.position + new Vector3(-0.55f,0,0), Vector3.right, 0.1f, CastLayerRed);
+			castLeftRed = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.right, 0.1f, CastLayerRed);
 			Debug.Log(castLeftRed.collider);
-			castRightRed = Physics2D.Raycast(transform.position + new Vector3(0.55f,0,0), Vector3.right, 0.1f, CastLayerRed);
+			castRightRed = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.1f, CastLayerRed);
 			Debug.Log(castRightRed.collider);
-			castLeftGreen = Physics2D.Raycast(transform.position + new Vector3(-0.55f,0,0), Vector3.right, 0.1f, CastLayerGreen);
+			castLeftGreen = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.right, 0.1f, CastLayerGreen);
 			Debug.Log(castLeftGreen.collider);
-			castRightGreen = Physics2D.Raycast(transform.position + new Vector3(0.55f,0,0), Vector3.right, 0.1f, CastLayerGreen);
+			castRightGreen = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.1f, CastLayerGreen);
 			Debug.Log(castRightGreen.collider);
 
 			
@@ -107,8 +107,10 @@ public class PlayerScript : MonoBehaviour {
 				}
 			}else if(hasWallJumped){
 				tempWallJumpTime -= Time.deltaTime;
+				Debug.Log(tempWallJumpTime);
 				if(tempWallJumpTime < 0){
 					rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
+
 				}
 			}else{
 				rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
@@ -118,9 +120,9 @@ public class PlayerScript : MonoBehaviour {
 				tempWallJumpTime = wallJumptimer;
 			}
 
-			castLeft = Physics2D.Raycast(transform.position + new Vector3(-0.55f,0,0), Vector3.left, 0.01f, CastLayer);
-			castRight = Physics2D.Raycast(transform.position + new Vector3(0.55f,0,0), Vector3.right, 0.01f, CastLayer);
-			castDown = Physics2D.Raycast(transform.position + new Vector3(0,-0.55f,0), Vector3.down, 0.5f, CastLayer);
+			castLeft = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.left, 0.01f, CastLayer);
+			castRight = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.01f, CastLayer);
+			castDown = Physics2D.Raycast(transform.position + new Vector3(0,-0.51f,0), Vector3.down, 0.5f, CastLayer);
 	        if(castDown.collider == null){ 	// if player is off the ground
 	        	isInAir = true;
 	        	if(castLeft.collider != null){		//if there is a wall on the left in mid air

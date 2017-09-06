@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour {
 
 		if(isEndGame){
 			RestartTimer -= Time.deltaTime;
+			CenterText.text = "Restarting in: " + Mathf.Round(RestartTimer).ToString();
 		}
 
 		if(RestartTimer < 0){

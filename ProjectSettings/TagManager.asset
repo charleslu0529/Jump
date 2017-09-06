@@ -8,6 +8,7 @@ TagManager:
   - Colored Wall
   - block
   - Spike
+  - Chest
   layers:
   - Default
   - TransparentFX
