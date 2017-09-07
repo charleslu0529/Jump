@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Custom Scripts\CameraScript.cs" />
+     <Compile Include="Assets\Custom Scripts\CheckPointScript.cs" />
      <Compile Include="Assets\Custom Scripts\GameManager.cs" />
      <Compile Include="Assets\Custom Scripts\ParticleScript.cs" />
      <Compile Include="Assets\Custom Scripts\PlayerScript.cs" />

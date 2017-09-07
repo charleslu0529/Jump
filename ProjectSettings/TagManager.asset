@@ -10,6 +10,7 @@ TagManager:
   - Spike
   - Chest
   - Death
+  - Check Point
   layers:
   - Default
   - TransparentFX

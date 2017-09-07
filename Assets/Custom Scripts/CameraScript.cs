@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour {
 
-	public GameObject Player;
+	public Transform Player;
 	public float CameraSmoothTime = 5f;
-	Vector3 offset;
 	Vector3 cameraVelocity = Vector3.zero;
 	Vector3 playerPosition;
 
@@ -16,12 +15,14 @@ public class CameraScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update(){
+	}
+
+	void FixedUpdate () {
 
 		if(Player != null){
-			offset = transform.position - new Vector3(Player.transform.position.x, Player.transform.position.y, transform.position.z);
-			playerPosition  = new Vector3(Player.transform.position.x, Player.transform.position.y, transform.position.z);
-			transform.position = Vector3.SmoothDamp(transform.position, playerPosition, ref cameraVelocity, CameraSmoothTime);
+			playerPosition  = Player.TransformPoint(new Vector3(0,0,-10));
+			transform.position = Vector3.SmoothDamp(transform.position, playerPosition, ref cameraVelocity, CameraSmoothTime/10);
 		}
 		
 		//transform.Translate(offset);

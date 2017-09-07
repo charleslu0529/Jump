@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	public Color GreenStateColor;
 	public Color NormalStateColor;
 	public Color RedStateColot;
+	public Camera MainCamera;
 	public GameObject Player;
 	public GameObject GreenWall;
 	public GameObject RedWall;
@@ -19,11 +20,16 @@ public class GameManager : MonoBehaviour {
 	public float RestartTimer = 3f;
 	public float endInstTimer = 7f;
 	public float deathSpeed = 20f;
+	public float shakeAmount = 0.7f;
+	public float decreaseFactor = 1f;
+	public float shakeDuration = 2f;
+	Vector3 spawnPosition;
 	bool isEndGame = false;
 	bool hasSpawnedDeath = false;
 	bool isEndScene = false;
 	bool isPlayingMusic = false;
 	bool isRunning = false;
+	bool isShaking = false;
 	AudioSource bgm;
 	AudioSource youAreDead;
 
@@ -45,6 +51,7 @@ public class GameManager : MonoBehaviour {
 		AudioSource[] audios = GetComponents<AudioSource>();
 		bgm = audios[0];
 		youAreDead = audios[1];
+		spawnPosition = new Vector3(0,0,0);
 	}
 	
 	// Update is called once per frame
@@ -102,8 +109,12 @@ public class GameManager : MonoBehaviour {
 		if(isEndScene){
 			endInstTimer -= Time.deltaTime;
 			
+			if(endInstTimer < shakeDuration){
+				 MainCamera.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, -10f) + Random.insideUnitSphere * shakeAmount;
+			}
 			if(endInstTimer < 0){
 				if(!hasSpawnedDeath){
+					MainCamera.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, -10f);
 					CenterText.text = "";
 					bgm.Play();
 					GameObject deathObject = Instantiate(Death, Player.GetComponent<Transform>().position + Vector3.up * 10f , Quaternion.identity) as GameObject;
@@ -112,19 +123,6 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 		}
-
-		/*if(Player.GetComponent<PlayerScript>().myColor == GreenWall.GetComponent<WallScript>().myColor){
-
-			Physics.IgnoreLayerCollision(10, 8, true);
-
-			}else if(Player.GetComponent<PlayerScript>().myColor == RedWall.GetComponent<WallScript>().myColor){
-
-				Physics.IgnoreLayerCollision(10, 9, true);
-
-				}else{
-					Physics.IgnoreLayerCollision(10, 8, false);
-					Physics.IgnoreLayerCollision(10, 9, false);
-				}*/
 	}
 	public Color GetGreenColour(){
 		return GreenStateColor;
@@ -155,11 +153,22 @@ public class GameManager : MonoBehaviour {
 		return isRunning;
 	}
 
+	public void relocate(){
+
+		Player.transform.position = spawnPosition + Vector3.up;
+		Player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+		MainCamera.transform.position = new Vector3(spawnPosition.x, spawnPosition.y, -10);
+	}
+
 	public void endScene(){
 		isRunning = false;
 		bgm.Stop();
 		isEndScene = true;
 		youAreDead.Play();
 		CenterText.text = "!";
+	}
+
+	public void updateCheckPoint(Vector3 newCheckPoint){
+		spawnPosition = newCheckPoint;
 	}
 }

@@ -66,13 +66,9 @@ public class PlayerScript : MonoBehaviour {
 			}
 
 			castLeftRed = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.right, 0.1f, CastLayerRed);
-			Debug.Log(castLeftRed.collider);
 			castRightRed = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.1f, CastLayerRed);
-			Debug.Log(castRightRed.collider);
 			castLeftGreen = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.right, 0.1f, CastLayerGreen);
-			Debug.Log(castLeftGreen.collider);
 			castRightGreen = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.1f, CastLayerGreen);
-			Debug.Log(castRightGreen.collider);
 
 			
 
@@ -100,29 +96,24 @@ public class PlayerScript : MonoBehaviour {
 			}
 
 			if(Input.GetAxisRaw("Horizontal") == 0){
-				if(isInAir){
-					rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y,0f);
+				if(!isInAir){
+					rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
+				}
+			}else{
+				if(hasWallJumped){
+					tempWallJumpTime -= Time.deltaTime;
+					if(tempWallJumpTime < 0){
+						rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
+					}
 				}else{
 					rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
 				}
-			}else if(hasWallJumped){
-				tempWallJumpTime -= Time.deltaTime;
-				Debug.Log(tempWallJumpTime);
-				if(tempWallJumpTime < 0){
-					rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
-
-				}
-			}else{
-				rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
 			}
 			
-			if(!hasWallJumped){
-				tempWallJumpTime = wallJumptimer;
-			}
 
-			castLeft = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.left, 0.01f, CastLayer);
-			castRight = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.01f, CastLayer);
-			castDown = Physics2D.Raycast(transform.position + new Vector3(0,-0.51f,0), Vector3.down, 0.5f, CastLayer);
+			castLeft = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.left, 0.05f, CastLayer);
+			castRight = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.05f, CastLayer);
+			castDown = Physics2D.Raycast(transform.position + new Vector3(0,-0.51f,0), Vector3.down, 0.05f, CastLayer);
 	        if(castDown.collider == null){ 	// if player is off the ground
 	        	isInAir = true;
 	        	if(castLeft.collider != null){		//if there is a wall on the left in mid air
@@ -138,7 +129,6 @@ public class PlayerScript : MonoBehaviour {
 	        	}else{
 	        		isOnWall = false;
 	        		canWallJump = false;
-	        		hasWallJumped = false;
 	        	}
 	        }else{
 	        	canWallJump = false;
@@ -146,18 +136,14 @@ public class PlayerScript : MonoBehaviour {
 	        	isInAir = false;
 	        }
 	        if(castLeft.collider != null){
-	        	if(rb.velocity.x < 0){
+	        	if(Input.GetAxisRaw("Horizontal") < 0){
 	        		rb.velocity = new Vector3(0, rb.velocity.y, 0f);
-	        	}else{
-	        		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0f);
 	        	}
 	        }
 
 	        if(castRight.collider != null){
-	        	if(rb.velocity.x > 0){
+	        	if(Input.GetAxisRaw("Horizontal") > 0){
 	        		rb.velocity = new Vector3(0, rb.velocity.y, 0f);
-	        	}else{
-	        		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0f);
 	        	}
 	        }
 
@@ -165,34 +151,26 @@ public class PlayerScript : MonoBehaviour {
 				originalColor = GameManager.instance.GetNormalColour();
 				colorNumber = 0;
 				if(castLeftGreen.collider != null || castLeftRed.collider != null){
-					if(rb.velocity.x < 0){
+					if(Input.GetAxisRaw("Horizontal")< 0){
 	        			rb.velocity = new Vector3(0, rb.velocity.y, 0f);
-		        	}else{
-		        		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0f);
 		        	}
 				}
 				if(castRightGreen.collider != null || castRightRed.collider != null){
-					if(rb.velocity.x > 0){
+					if(Input.GetAxisRaw("Horizontal") > 0){
 	        			rb.velocity = new Vector3(0, rb.velocity.y, 0f);
-		        	}else{
-		        		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0f);
 		        	}
 				}
 			}else if(myColor == ColorState.Green){
 				originalColor = GameManager.instance.GetGreenColour();
 				colorNumber = 1;
 				if(castLeftRed.collider != null){
-					if(rb.velocity.x < 0){
+					if(Input.GetAxisRaw("Horizontal") < 0){
 	        			rb.velocity = new Vector3(0, rb.velocity.y, 0f);
-		        	}else{
-		        		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0f);
 		        	}
 				}
 				if(castRightRed.collider != null){
-					if(rb.velocity.x > 0){
+					if(Input.GetAxisRaw("Horizontal") > 0){
 	        			rb.velocity = new Vector3(0, rb.velocity.y, 0f);
-		        	}else{
-		        		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0f);
 		        	}
 				}
 				
@@ -200,17 +178,13 @@ public class PlayerScript : MonoBehaviour {
 				originalColor = GameManager.instance.GetRedColour();
 				colorNumber = 2;
 				if(castLeftGreen.collider != null){
-					if(rb.velocity.x < 0){
-	        		rb.velocity = new Vector3(0, rb.velocity.y, 0f);
-		        	}else{
-		        		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0f);
+					if(Input.GetAxisRaw("Horizontal") < 0){
+	        			rb.velocity = new Vector3(0, rb.velocity.y, 0f);
 		        	}
 				}
 				if(castRightGreen.collider != null){
-					if(rb.velocity.x > 0){
-	        		rb.velocity = new Vector3(0, rb.velocity.y, 0f);
-		        	}else{
-		        		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 0f);
+					if(Input.GetAxisRaw("Horizontal") > 0){
+	        			rb.velocity = new Vector3(0, rb.velocity.y, 0f);
 		        	}
 				}
 			}
@@ -224,6 +198,7 @@ public class PlayerScript : MonoBehaviour {
 	        			if( Input.GetKeyUp("space") ){
 							rb.velocity = new Vector3(1f,1f,0f).normalized;
 							hasWallJumped = true;
+							tempWallJumpTime = wallJumptimer;
 							if(maxJump){
 								rb.velocity = rb.velocity * WallJumpSpeed * MaxJumpMultiplier;
 							}else{
@@ -239,6 +214,7 @@ public class PlayerScript : MonoBehaviour {
 	        			if( Input.GetKeyUp("space") ){
 							rb.velocity = new Vector3(-1f,1f,0f).normalized;
 							hasWallJumped = true;
+							tempWallJumpTime = wallJumptimer;
 							if(maxJump){
 								rb.velocity = rb.velocity * WallJumpSpeed * MaxJumpMultiplier;
 							}else{
@@ -258,14 +234,31 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D col2D){
-		if(col2D.gameObject.tag == "Spike" || col2D.gameObject.tag == "Death" ){
-			GameManager.instance.endGame();
-			GameManager.instance.endRun();
+		if(col2D.gameObject.tag == "Spike" ){
+			GameManager.instance.relocate();
+			myColor = ColorState.Normal;
+		}
+
+		if(col2D.gameObject.tag == "Check Point"){
+			GameManager.instance.updateCheckPoint(col2D.gameObject.transform.position);
 		}
 
 		if(col2D.gameObject.tag == "Chest"){
 			GameManager.instance.endScene();
 		}
+
+		if(col2D.gameObject.tag == "Death"){
+			GameManager.instance.endGame();
+			GameManager.instance.endRun();
+		}
+
+		if(castLeft.collider != null){
+        	rb.velocity = new Vector3(0, 0, 0f);
+	    }
+
+        if(castRight.collider != null){
+        	rb.velocity = new Vector3(0, 0, 0f);
+        }
 	}
 
 	void OnCollisionStay2D(Collision2D col2D) {
@@ -279,7 +272,6 @@ public class PlayerScript : MonoBehaviour {
 	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetNormalColour().b){
 	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetNormalColour().a){
 	    					myColor = ColorState.Normal;
-				    		Debug.Log("Color State: " + myColor);
 	    				}
 	    			}
 	    		}
@@ -288,7 +280,6 @@ public class PlayerScript : MonoBehaviour {
 	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetGreenColour().b){
 	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetGreenColour().a){
 	    					myColor = ColorState.Green;
-	    					Debug.Log("Color State: " + myColor);
 	    				}
 	    			}
 	    		}
@@ -297,16 +288,11 @@ public class PlayerScript : MonoBehaviour {
 	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetRedColour().b){
 	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetRedColour().a){
 	    					myColor = ColorState.Red;
-				    		
-	    					Debug.Log("Color State: " + myColor);
 	    				}
 	    			}
 	    		}
 	    	}
     	}
-
-    	Debug.Log("Player Color State: " + myColor);
-    	Debug.Log("Particle Color State: " + other.GetComponent<WallScript>().myColor);
     }
     
 	void Jump(){
