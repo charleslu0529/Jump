@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
 	public AudioSource BGM;
 	public Text CenterText;
 	public float RestartTimer = 3f;
-	public float endInstTimer = 8f;
+	public float endInstTimer = 7f;
 	public float deathSpeed = 20f;
 	bool isEndGame = false;
 	bool hasSpawnedDeath = false;
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
 	bool isPlayingMusic = false;
 	bool isRunning = false;
 	AudioSource bgm;
+	AudioSource youAreDead;
 
 	void Awake()
 	{
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour {
 		Time.timeScale = 0;
 		AudioSource[] audios = GetComponents<AudioSource>();
 		bgm = audios[0];
+		youAreDead = audios[1];
 	}
 	
 	// Update is called once per frame
@@ -93,10 +95,17 @@ public class GameManager : MonoBehaviour {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 
+		if(Input.GetKey(KeyCode.Escape)){
+			Application.Quit();
+		}
+
 		if(isEndScene){
 			endInstTimer -= Time.deltaTime;
+			
 			if(endInstTimer < 0){
 				if(!hasSpawnedDeath){
+					CenterText.text = "";
+					bgm.Play();
 					GameObject deathObject = Instantiate(Death, Player.GetComponent<Transform>().position + Vector3.up * 10f , Quaternion.identity) as GameObject;
 					hasSpawnedDeath = true;
 					deathObject.GetComponent<Rigidbody2D>().velocity = Vector3.down * deathSpeed;
@@ -150,5 +159,7 @@ public class GameManager : MonoBehaviour {
 		isRunning = false;
 		bgm.Stop();
 		isEndScene = true;
+		youAreDead.Play();
+		CenterText.text = "!";
 	}
 }
