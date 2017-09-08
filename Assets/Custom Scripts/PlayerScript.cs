@@ -33,8 +33,10 @@ public class PlayerScript : MonoBehaviour {
 	RaycastHit2D castDown;
 	RaycastHit2D castRightRed;
 	RaycastHit2D castLeftRed;
+	RaycastHit2D castDownRed;
 	RaycastHit2D castLeftGreen;
 	RaycastHit2D castRightGreen;
+	RaycastHit2D castDownGreen;
 
 	// Use this for initialization
 	void Start () {
@@ -67,8 +69,10 @@ public class PlayerScript : MonoBehaviour {
 
 			castLeftRed = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.right, 0.1f, CastLayerRed);
 			castRightRed = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.1f, CastLayerRed);
+			castDownRed = Physics2D.Raycast(transform.position + new Vector3(0,-0.51f,0), Vector3.right, 0.01f, CastLayerRed);
 			castLeftGreen = Physics2D.Raycast(transform.position + new Vector3(-0.51f,0,0), Vector3.right, 0.1f, CastLayerGreen);
 			castRightGreen = Physics2D.Raycast(transform.position + new Vector3(0.51f,0,0), Vector3.right, 0.1f, CastLayerGreen);
+			castDownGreen = Physics2D.Raycast(transform.position + new Vector3(0,-0.51f,0), Vector3.right, 0.01f, CastLayerGreen);
 
 			
 
@@ -101,13 +105,16 @@ public class PlayerScript : MonoBehaviour {
 				}
 			}else{
 				if(hasWallJumped){
-					tempWallJumpTime -= Time.deltaTime;
 					if(tempWallJumpTime < 0){
 						rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
 					}
 				}else{
 					rb.velocity = new Vector3(MoveSpeed * Input.GetAxisRaw("Horizontal"), rb.velocity.y,0f);
 				}
+			}
+
+			if(hasWallJumped){
+				tempWallJumpTime -= Time.deltaTime;
 			}
 			
 
@@ -163,6 +170,27 @@ public class PlayerScript : MonoBehaviour {
 			}else if(myColor == ColorState.Green){
 				originalColor = GameManager.instance.GetGreenColour();
 				colorNumber = 1;
+				if(castDownRed.collider == null && castDown.collider == null){
+					isInAir = true;
+		        	if(castLeftRed.collider != null || castLeft.collider != null){		//if there is a wall on the left in mid air
+		        		isOnWall = true;
+		        		isOnWallLeft = true;
+		        		canWallJump = true;
+		        		hasWallJumped = false;
+		        	}else if(castRightRed.collider != null || castRight.collider != null){	// if there is a wall on the right in mid air
+		        		isOnWall = true;
+		        		isOnWallLeft = false;
+		        		canWallJump = true;
+		        		hasWallJumped = false;
+		        	}else{
+		        		isOnWall = false;
+		        		canWallJump = false;
+		        	}
+				}else{
+	        		canWallJump = false;
+	        		isOnWall = false;
+	        		isInAir = false;
+	        	}
 				if(castLeftRed.collider != null){
 					if(Input.GetAxisRaw("Horizontal") < 0){
 	        			rb.velocity = new Vector3(0, rb.velocity.y, 0f);
@@ -177,6 +205,27 @@ public class PlayerScript : MonoBehaviour {
 			}else if(myColor == ColorState.Red){
 				originalColor = GameManager.instance.GetRedColour();
 				colorNumber = 2;
+				if(castDownGreen.collider == null && castDown.collider == null){
+					isInAir = true;
+		        	if(castLeftGreen.collider != null || castLeft.collider != null){		//if there is a wall on the left in mid air
+		        		isOnWall = true;
+		        		isOnWallLeft = true;
+		        		canWallJump = true;
+		        		hasWallJumped = false;
+		        	}else if(castRightGreen.collider != null || castRight.collider != null){	// if there is a wall on the right in mid air
+		        		isOnWall = true;
+		        		isOnWallLeft = false;
+		        		canWallJump = true;
+		        		hasWallJumped = false;
+		        	}else{
+		        		isOnWall = false;
+		        		canWallJump = false;
+		        	}
+				}else{
+	        		canWallJump = false;
+	        		isOnWall = false;
+	        		isInAir = false;
+	        	}
 				if(castLeftGreen.collider != null){
 					if(Input.GetAxisRaw("Horizontal") < 0){
 	        			rb.velocity = new Vector3(0, rb.velocity.y, 0f);

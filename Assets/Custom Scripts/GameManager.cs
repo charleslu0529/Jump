@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
 	bool isShaking = false;
 	AudioSource bgm;
 	AudioSource youAreDead;
+	AudioSource splat;
 
 	void Awake()
 	{
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour {
 		AudioSource[] audios = GetComponents<AudioSource>();
 		bgm = audios[0];
 		youAreDead = audios[1];
+		splat = audios[2];
 		spawnPosition = new Vector3(0,0,0);
 	}
 	
@@ -139,6 +141,7 @@ public class GameManager : MonoBehaviour {
 	public void endGame(){
 		
 		isEndGame = true;
+		splat.Play();
 	}
 
 	public bool getIsEndGame(){
