@@ -138,15 +138,10 @@ public class GameManager : MonoBehaviour {
 		return RedStateColot;
 	}
 
-	public GameObject GetPlayerObject(){
-		return Player;
-	}
-
 	public void endGame(){
 		
 		isEndGame = true;
 		splat.Play();
-		isEndScene = false;
 	}
 
 	public bool getIsEndGame(){

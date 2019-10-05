@@ -315,8 +315,8 @@ public class PlayerScript : MonoBehaviour {
     }
 
     void OnParticleCollision(GameObject other){
-		// Debug.Log(other);
     	if(other.GetComponent<ParticleSystem>()){
+<<<<<<< HEAD
 			if(myColor == ColorState.Green){
 				if(other.GetComponent<ParticleSystem>().main.startColor.r == GameManager.instance.GetNormalColour().r ){
 					// Debug.Log("NormalColorLoop: startColor.r = " + other.GetComponent<ParticleSystem>().main.startColor.r);
@@ -390,6 +390,34 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 
+=======
+			if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetNormalColour().r ){
+	    		if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetNormalColour().g){
+	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetNormalColour().b){
+	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetNormalColour().a){
+	    					myColor = ColorState.Normal;
+	    				}
+	    			}
+	    		}
+	    	}else if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetGreenColour().r ){
+	    		if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetGreenColour().g){
+	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetGreenColour().b){
+	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetGreenColour().a){
+	    					myColor = ColorState.Green;
+	    				}
+	    			}
+	    		}
+	    	}else if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetRedColour().r ){
+	    		if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetRedColour().g){
+	    			if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetRedColour().b){
+	    				if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetRedColour().a){
+	    					myColor = ColorState.Red;
+	    				}
+	    			}
+	    		}
+	    	}
+    	}
+>>>>>>> parent of 5bfb8da... script fix, GameObject reference fix
     }
     
 	void Jump(){
