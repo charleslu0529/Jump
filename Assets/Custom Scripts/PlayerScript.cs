@@ -318,70 +318,70 @@ public class PlayerScript : MonoBehaviour {
 		// Debug.Log(other);
     	if(other.GetComponent<ParticleSystem>()){
 			if(myColor == ColorState.Green){
-				if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetNormalColour().r ){
-					// Debug.Log("NormalColorLoop: startColor.r = " + other.GetComponent<ParticleSystem>().startColor.r);
-					if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetNormalColour().g){
-						// Debug.Log("NormalColorLoop: startColor.g = " + other.GetComponent<ParticleSystem>().startColor.g);
-						if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetNormalColour().b){
-							// Debug.Log("NormalColorLoop: startColor.b = " + other.GetComponent<ParticleSystem>().startColor.b);
-							if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetNormalColour().a){
-								// Debug.Log("NormalColorLoop: startColor.a = " + other.GetComponent<ParticleSystem>().startColor.a);
+				if(other.GetComponent<ParticleSystem>().main.startColor.r == GameManager.instance.GetNormalColour().r ){
+					// Debug.Log("NormalColorLoop: startColor.r = " + other.GetComponent<ParticleSystem>().main.startColor.r);
+					if(other.GetComponent<ParticleSystem>().main.startColor.g == GameManager.instance.GetNormalColour().g){
+						// Debug.Log("NormalColorLoop: startColor.g = " + other.GetComponent<ParticleSystem>().main.startColor.g);
+						if(other.GetComponent<ParticleSystem>().main.startColor.b == GameManager.instance.GetNormalColour().b){
+							// Debug.Log("NormalColorLoop: startColor.b = " + other.GetComponent<ParticleSystem>().main.startColor.b);
+							if(other.GetComponent<ParticleSystem>().main.startColor.a == GameManager.instance.GetNormalColour().a){
+								// Debug.Log("NormalColorLoop: startColor.a = " + other.GetComponent<ParticleSystem>().main.startColor.a);
 								myColor = ColorState.Normal;
 							}
 						}
 					}
-				}else if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetRedColour().r ){
-					if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetRedColour().g){
-						if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetRedColour().b){
-							if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetRedColour().a){
+				}else if(other.GetComponent<ParticleSystem>().main.startColor.r == GameManager.instance.GetRedColour().r ){
+					if(other.GetComponent<ParticleSystem>().main.startColor.g == GameManager.instance.GetRedColour().g){
+						if(other.GetComponent<ParticleSystem>().main.startColor.b == GameManager.instance.GetRedColour().b){
+							if(other.GetComponent<ParticleSystem>().main.startColor.a == GameManager.instance.GetRedColour().a){
 								myColor = ColorState.Red;
 							}
 						}
 					}
 				}
 			}else if(myColor == ColorState.Red){
-				if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetGreenColour().r ){
-					// Debug.Log("GreenColorLoop: startColor.r = " + other.GetComponent<ParticleSystem>().startColor.r);
-					if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetGreenColour().g){
-						// Debug.Log("GreenColorLoop: startColor.g = " + other.GetComponent<ParticleSystem>().startColor.g);
-						if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetGreenColour().b){
-							// Debug.Log("GreenColorLoop: startColor.b = " + other.GetComponent<ParticleSystem>().startColor.b);
-							if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetGreenColour().a){
-								// Debug.Log("GreenColorLoop: startColor.a = " + other.GetComponent<ParticleSystem>().startColor.a);
+				if(other.GetComponent<ParticleSystem>().main.startColor.r == GameManager.instance.GetGreenColour().r ){
+					// Debug.Log("GreenColorLoop: startColor.r = " + other.GetComponent<ParticleSystem>().main.startColor.r);
+					if(other.GetComponent<ParticleSystem>().main.startColor.g == GameManager.instance.GetGreenColour().g){
+						// Debug.Log("GreenColorLoop: startColor.g = " + other.GetComponent<ParticleSystem>().main.startColor.g);
+						if(other.GetComponent<ParticleSystem>().main.startColor.b == GameManager.instance.GetGreenColour().b){
+							// Debug.Log("GreenColorLoop: startColor.b = " + other.GetComponent<ParticleSystem>().main.startColor.b);
+							if(other.GetComponent<ParticleSystem>().main.startColor.a == GameManager.instance.GetGreenColour().a){
+								// Debug.Log("GreenColorLoop: startColor.a = " + other.GetComponent<ParticleSystem>().main.startColor.a);
 								myColor = ColorState.Green;
 							}
 						}
 					}
-				}else if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetNormalColour().r ){
-					// Debug.Log("NormalColorLoop: startColor.r = " + other.GetComponent<ParticleSystem>().startColor.r);
-					if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetNormalColour().g){
-						// Debug.Log("NormalColorLoop: startColor.g = " + other.GetComponent<ParticleSystem>().startColor.g);
-						if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetNormalColour().b){
-							// Debug.Log("NormalColorLoop: startColor.b = " + other.GetComponent<ParticleSystem>().startColor.b);
-							if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetNormalColour().a){
-								// Debug.Log("NormalColorLoop: startColor.a = " + other.GetComponent<ParticleSystem>().startColor.a);
+				}else if(other.GetComponent<ParticleSystem>().main.startColor.r == GameManager.instance.GetNormalColour().r ){
+					// Debug.Log("NormalColorLoop: startColor.r = " + other.GetComponent<ParticleSystem>().main.startColor.r);
+					if(other.GetComponent<ParticleSystem>().main.startColor.g == GameManager.instance.GetNormalColour().g){
+						// Debug.Log("NormalColorLoop: startColor.g = " + other.GetComponent<ParticleSystem>().main.startColor.g);
+						if(other.GetComponent<ParticleSystem>().main.startColor.b == GameManager.instance.GetNormalColour().b){
+							// Debug.Log("NormalColorLoop: startColor.b = " + other.GetComponent<ParticleSystem>().main.startColor.b);
+							if(other.GetComponent<ParticleSystem>().main.startColor.a == GameManager.instance.GetNormalColour().a){
+								// Debug.Log("NormalColorLoop: startColor.a = " + other.GetComponent<ParticleSystem>().main.startColor.a);
 								myColor = ColorState.Normal;
 							}
 						}
 					}
 				}
 			}else if(myColor == ColorState.Normal){
-				if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetGreenColour().r ){
-					// Debug.Log("GreenColorLoop: startColor.r = " + other.GetComponent<ParticleSystem>().startColor.r);
-					if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetGreenColour().g){
-						// Debug.Log("GreenColorLoop: startColor.g = " + other.GetComponent<ParticleSystem>().startColor.g);
-						if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetGreenColour().b){
-							// Debug.Log("GreenColorLoop: startColor.b = " + other.GetComponent<ParticleSystem>().startColor.b);
-							if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetGreenColour().a){
-								// Debug.Log("GreenColorLoop: startColor.a = " + other.GetComponent<ParticleSystem>().startColor.a);
+				if(other.GetComponent<ParticleSystem>().main.startColor.r == GameManager.instance.GetGreenColour().r ){
+					// Debug.Log("GreenColorLoop: startColor.r = " + other.GetComponent<ParticleSystem>().main.startColor.r);
+					if(other.GetComponent<ParticleSystem>().main.startColor.g == GameManager.instance.GetGreenColour().g){
+						// Debug.Log("GreenColorLoop: startColor.g = " + other.GetComponent<ParticleSystem>().main.startColor.g);
+						if(other.GetComponent<ParticleSystem>().main.startColor.b == GameManager.instance.GetGreenColour().b){
+							// Debug.Log("GreenColorLoop: startColor.b = " + other.GetComponent<ParticleSystem>().main.startColor.b);
+							if(other.GetComponent<ParticleSystem>().main.startColor.a == GameManager.instance.GetGreenColour().a){
+								// Debug.Log("GreenColorLoop: startColor.a = " + other.GetComponent<ParticleSystem>().main.startColor.a);
 								myColor = ColorState.Green;
 							}
 						}
 					}
-				}else if(other.GetComponent<ParticleSystem>().startColor.r == GameManager.instance.GetRedColour().r ){
-					if(other.GetComponent<ParticleSystem>().startColor.g == GameManager.instance.GetRedColour().g){
-						if(other.GetComponent<ParticleSystem>().startColor.b == GameManager.instance.GetRedColour().b){
-							if(other.GetComponent<ParticleSystem>().startColor.a == GameManager.instance.GetRedColour().a){
+				}else if(other.GetComponent<ParticleSystem>().main.startColor.r == GameManager.instance.GetRedColour().r ){
+					if(other.GetComponent<ParticleSystem>().main.startColor.g == GameManager.instance.GetRedColour().g){
+						if(other.GetComponent<ParticleSystem>().main.startColor.b == GameManager.instance.GetRedColour().b){
+							if(other.GetComponent<ParticleSystem>().main.startColor.a == GameManager.instance.GetRedColour().a){
 								myColor = ColorState.Red;
 							}
 						}
