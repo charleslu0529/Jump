@@ -24,6 +24,12 @@ public class CameraScript : MonoBehaviour {
 			playerPosition  = Player.TransformPoint(new Vector3(0,0,-10));
 			transform.position = Vector3.SmoothDamp(transform.position, playerPosition, ref cameraVelocity, CameraSmoothTime/10);
 		}
+		else
+		{
+			if(!GameManager.instance.getIsEndGame()){
+				Player = GameManager.instance.GetPlayerObject().GetComponent<Transform>();
+			}
+		}
 		
 		//transform.Translate(offset);
 		/*if(offset.x > 3f || offset.x < -3f){
